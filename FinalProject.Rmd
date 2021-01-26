@@ -1,0 +1,23 @@
+---
+title: "LeafLet"
+author: "Adrián Fabela"
+date: "1/26/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## NFL Teams 26/01/2021
+
+```{r echo=F}
+library(leaflet)
+coord<-read.csv(file.choose(),header = T,stringsAsFactors = F)
+coordinates <- data.frame(lat=coord$Latitude, lng=coord$Longitude)
+icons<- makeIcon(iconUrl = coord$Logo,iconWidth = rep(31*215/230,32),iconHeight = rep(31,32),iconAnchorX = rep(31*215/230/2,32),iconAnchorY = rep(16,32))
+coordinates%>% leaflet()%>%addTiles()%>%addMarkers(icon = icons,popup = coord$Franchise)
+
+
+```
+
