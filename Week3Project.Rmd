@@ -1,0 +1,50 @@
+---
+title: "Week 3 Plotly"
+author: "Adrián Fabela"
+date: "1/28/2021"
+output: slidy_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Description
+
+This slides are to show a piece of code to run a 3D plot from the plotly package on the *iris* dataframe .
+
+
+## Code for plotting a 3D plot
+
+```{r code2, echo = T,eval=FALSE, message=FALSE}
+fig <-plot_ly(x=iris$Sepal.Length, y=iris$Sepal.Width,z=iris$Petal.Lengt, color=as.factor(iris$Species),mode="markers" ,type="scatter3d")
+
+fig <- fig %>% layout(
+    title = "Iris Dataset",
+    scene = list(
+      xaxis = list(title = "Sepal Length"),
+      yaxis = list(title = "Sepal Width"),
+      zaxis = list(title = "Petal Length")
+    ))
+
+fig
+```
+
+
+## Plot
+```{r plot, echo=FALSE, eval=TRUE,message=FALSE}
+library(plotly)
+fig <-plot_ly(x=iris$Sepal.Length, y=iris$Sepal.Width,z=iris$Petal.Lengt, color=as.factor(iris$Species),mode="markers" ,type="scatter3d")
+
+fig <- fig %>% layout(
+    title = "Iris Dataset",
+    scene = list(
+      xaxis = list(title = "Sepal Length"),
+      yaxis = list(title = "Sepal Width"),
+      zaxis = list(title = "Petal Length")
+    ))
+
+fig
+
+```
+
