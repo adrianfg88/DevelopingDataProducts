@@ -1,0 +1,16 @@
+---
+title: "Week 4 Instructions"
+author: "Adrián Fabela"
+date: "1/28/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+
+This Shiny App is to predict the Species of the iris data frame by selecting Sepal Length and Sepal Width.
+How it works is the following. It uses the random forest method to predict the type of species using the sepal width and length.
+ 
