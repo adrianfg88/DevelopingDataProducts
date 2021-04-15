@@ -1,0 +1,72 @@
+Text prediction algorithm
+========================================================
+author: Adrian Fabela 
+date: 15/04/2021
+autosize: true
+
+
+========================================================
+
+Introduction
+
+This project has the aim of deploying an algorithm with which a user can start typing a sentence and get suggested follow-up words. This type of applications are widely used today due to the performance power of computers and the user's will for more comfort.
+
+
+========================================================
+
+Strategy for N-gram building
+
+The idea is to use the power of existing text mining algorithms and packages to tokenize and analyze 100 thousand tweets from the web. These 100 thousand tweets must first be tokenized without any lemmatisation nor stemming because the aim is to gather user-typing information in the social media. The next step is to look at all N-gram levels until the value of 4. This woudl then tell us which 4 consecutive words appear the most in this information ( funfact: the word thanks is the most used one in any N-gram bigger than 1, which makes me happy considering we are still moslty thankfull for something as a global community). 
+
+```{r graficos , echo= F }
+library(ggplot2)
+
+CorpusUno<- readRDS(file = "Corpus_Unigram.rds") #para meter todos los archivos al shiny server
+CorpusDos<-readRDS(file = "Corpus_Bigram.rds")
+CorpusTres<-readRDS(file = "Corpus_Trigram.rds")
+CorpusCuatro<-readRDS(file = "Corpus_Tetragram.rds")
+
+ggplot(CorpusCuatro[1:10,], aes(reorder(tetragram, n), n, fill= n)) +
+            geom_col(show.legend = FALSE) +
+            labs(x = NULL, y = "Ocurrence",title="4-gram") +
+            coord_flip()
+
+ggplot(CorpusTres[1:10,], aes(reorder(trigram, n), n, fill= n)) +
+            geom_col(show.legend = FALSE) +
+            labs(x = NULL, y = "Ocurrence",title="3-gram") +
+            coord_flip()
+
+ggplot(CorpusDos[1:10,], aes(reorder(bigram, n), n, fill= n)) +
+            geom_col(show.legend = FALSE) +
+            labs(x = NULL, y = "Ocurrence",title="2-gram") +
+            coord_flip()
+  
+ggplot(CorpusUno[1:10,], aes(reorder(word, n), n, fill= n)) +
+            geom_col(show.legend = FALSE) +
+            labs(x = NULL, y = "Ocurrence",title="1-gram") +
+            coord_flip()
+
+
+```
+
+========================================================
+
+Algorithm logic
+
+The logic behind the algorithm was to use the 4-gram, 3-gram, 2-gram and 1-gram tables and go through them with a filter function from dyplr as what is the input from the user. The shniy app then runs a reactive variable which makes sure that everytime the input from the user is changed it does the same for each word looking firstly on the 4-gram then jump in to the 3-gram and so forth decreasing the level of the n-gram. 
+
+
+
+
+========================================
+
+Results
+
+As it can be seen in the application, the response time is outstandingly fast. It can even be compared to that you see in your phone. With higher computational power it can be stated that the number of N-grams which could be used as reference sets can go beyond 20 and thus have enough information to even build whole sentences based on either tweets, news or blogs.
+
+
+====================
+
+Conclusion
+
+The power such applications can provide with regards to text mining is  limited to the programmers creativity and the power of his super computer. 
